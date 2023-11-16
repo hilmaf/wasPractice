@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.app.member.MemberVo;
 import com.kh.app.member.service.MemberService;
@@ -38,6 +39,8 @@ public class MemberLoginController extends HttpServlet{
 			
 			// 결과 처리
 			if(loginMember!=null) {
+				HttpSession session = req.getSession();
+				session.setAttribute("userData", loginMember);
 				req.getRequestDispatcher("/WEB-INF/views/common/success.jsp").forward(req, resp);
 			} else {
 				throw new Exception("[ERR-LOGIN2] 일치하는 회원정보 없음");

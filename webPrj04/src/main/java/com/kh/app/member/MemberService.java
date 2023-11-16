@@ -1,7 +1,7 @@
 package com.kh.app.member;
 
 import java.sql.Connection;
-
+import com.kh.app.member.MemberDao;
 import com.kh.app.db.util.JDBCTemplate;
 
 public class MemberService {
