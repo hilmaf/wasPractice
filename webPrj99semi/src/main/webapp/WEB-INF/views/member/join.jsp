@@ -5,22 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<style>
-    
-
-</style>
-
 </head>
 <body>
-    <div id="wrap">
-    
-		<%@ include file="/WEB-INF/views/common/header.jsp" %>
-
-        <main>
-        	<h1 align="center">홈페이지</h1>
-        </main>
-        
-    </div>
+	
+	<%@ include file="/WEB-INF/views/home.jsp" %>
+	
+	<h1>회원가입</h1>
+	
+	
+	
 </body>
 </html>
