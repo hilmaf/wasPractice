@@ -14,7 +14,7 @@
 		<main>
 			<h1 align="center">회원가입</h1>
 
-			<form action="/app99/member/join" method="post" onsubmit="checkValidate();">
+			<form action="/app99/member/join" method="post" onsubmit="return checkValidate();">
 				<table>
 					<tbody>
 						<tr>
@@ -77,15 +77,44 @@
 	function checkValidate() {
 
 		// 아이디 길이
-		// 패스워드 길이
-		// 패스워드 일치여부
-		// 닉네임에 부적절한 단어 없는지
-		// 이메일 형식 (정규식)
-		// 전화번호 형식 (정규식)
-		if(문제있음) {
-			alert('~~문제가 있음');
+		const memberId = document.querySelector("main input[name=memberId]").value;
+		const memberIdRegex = /^[a-z0-9]{4,12}$/;
+
+		if(!memberIdRegex.test(memberId)) {
+			alert("아이디를 올바르게 입력하세요");
+			document.querySelector("main input[name=memberId]").focus();
 			return false;
 		}
+
+		// 패스워드 길이
+		const memberPwd = document.querySelector("main input[name=memberPwd]").value;
+		const memberPwd2 = document.querySelector("main input[name=memberPwd2]").value;
+		
+		if(memberPwd.length < 4) {
+			alert("비밀번호는 4글자 이상이어야 합니다");
+			document.querySelector("main input[name=memberPwd]").focus();
+			return false;
+		}
+		// 패스워드 일치여부
+		
+		if(memberPwd!==memberPwd2) {
+			document.querySelector("main input[name=memberPwd]").focus();
+			alert("비밀번호 일치여부를 확인하세요");
+			return false;
+		}
+		// 닉네임에 부적절한 단어 없는지
+		const memberNick = document.querySelector("main input[name=memberNick]").value;
+		if(memberNick.includes("admin")) {
+			document.querySelector("main input[name=memberNick]").focus();
+			alert("부적절한 닉네임입니다.");
+			return false;
+		}
+		// 이메일 형식 (정규식)
+		// 전화번호 형식 (정규식)
+		// if(문제있음) {
+		// 	alert('~~문제가 있음');
+		// 	return false;
+		// }
 
 		return true;
 
