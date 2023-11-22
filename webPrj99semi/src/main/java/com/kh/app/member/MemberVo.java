@@ -147,6 +147,10 @@ public class MemberVo {
 
 
 	public void setHobbys(String[] hobbys) {
+		if(hobbys == null) {
+			this.hobbyStr="";
+			return;
+		}
 		this.hobbys = hobbys;
 		this.hobbyStr = String.join(",", hobbys);
 	}

@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.app.member.MemberVo;
 import com.kh.app.member.service.MemberService;
@@ -35,6 +36,9 @@ public class MemberLoginController extends HttpServlet{
 				throw new Exception("일치하는 회원정보 없음");
 			}
 			
+			HttpSession session = req.getSession();
+			session.setAttribute("loginMember", loginMember);
+			session.setAttribute("alertMsg", "로그인 성공");
 			resp.sendRedirect("/app99/home");
 		} catch(Exception e) {
 			System.out.println("[ERR-M002] 로그인 작업 중 예외 발생");

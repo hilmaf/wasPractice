@@ -114,18 +114,18 @@
             <li><a href="">마이페이지</a></li>
             <li><a href="">관심</a></li>
             <li><a>알림</a></li>
-            <li><a href="/app999/member/login">로그인</a></li>
+            <li><a href="">로그인</a></li>
         </ul>
     </div>
     <div class="main-list">
         <div class="logo-area">
-            <a href="/app999/home">
-            <img src="/app999/resources/img/logo.svg">
+            <a href="">
+            <img src="">
             </a>
         </div>
         <div class="head-list">
         	<ul>
-        		<li><a href="/app999/home">HOME</a></li>
+        		<li><a href="">HOME</a></li>
         		<li><a href="">SHOP</a></li>
 	        	<button id="search-btn" type="button" onclick="">Search</button>
     		</ul>
