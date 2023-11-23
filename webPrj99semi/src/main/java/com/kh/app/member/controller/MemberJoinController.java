@@ -24,8 +24,6 @@ public class MemberJoinController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			// 인코딩 처리
-			req.setCharacterEncoding("UTF-8");
 			// 데이터
 			String memberId = req.getParameter("memberId");
 			String memberPwd = req.getParameter("memberPwd");
