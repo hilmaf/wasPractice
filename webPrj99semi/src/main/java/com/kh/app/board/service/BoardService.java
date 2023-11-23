@@ -6,6 +6,7 @@ import java.util.List;
 import com.kh.app.board.BoardVo;
 import com.kh.app.board.dao.BoardDao;
 import com.kh.app.db.util.JDBCTemplate;
+import com.kh.app.member.dao.MemberDao;
 
 public class BoardService {
 
@@ -24,5 +25,74 @@ public class BoardService {
 		
 		return boardVoList;
 	}
+
+	public int write(BoardVo vo) throws Exception {
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		// dao
+		BoardDao dao = new BoardDao();
+		int result = dao.write(conn, vo);
+		
+		// tx
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		// close
+		JDBCTemplate.close(conn);
+		return result;
+	}
+
+	
+	// 게시글 상세조회
+	public BoardVo selectBoardByNo(String no) throws Exception {
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// dao
+		// 게시글 상세조회
+		BoardDao dao = new BoardDao();
+		int result = dao.increaseHit(conn, no);
+		
+		if(result != 1) {
+			throw new Exception("조회수 증가 작업 오류");
+		}
+		
+		BoardVo vo = dao.selectBoardByNo(conn, no);			
+		
+		// tx
+		if(result ==1 ) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		// close
+		JDBCTemplate.close(conn);
+		
+		return vo;
+	}
+
+	public int delete(BoardVo vo) throws Exception {
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// dao
+		BoardDao dao = new BoardDao();
+		int result = dao.delete(conn, vo);
+		
+		// tx
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		} else {
+			JDBCTemplate.rollback(conn);
+		}
+		// close
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
 
 }

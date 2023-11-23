@@ -5,8 +5,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="/app99/resources/css/write.css">
+
 </head>
 <body>
-
+	
+	<div id="wrap">
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<form action="/app99/board/write" method="post">
+		<main>
+			<h1>게시글 작성</h1>		
+			
+			카테고리 
+			<select name="category">
+				<option value="1">자유</option>
+				<option value="2">게임</option>
+				<option value="3">요리</option>
+				<option value="4">운동</option>
+				<option value="5">자바</option>
+				<option value="6">자스</option>
+				<option value="7">쿼리</option>
+			</select>
+			
+			제목
+			<input type="text" name="title" placeholder="제목을 입력하세요">
+			
+			내용
+			<textarea name="content" rows="10"></textarea>
+		
+			<input type="submit" value="작성하기">		
+		</main>
+	</form>
+	</div>
 </body>
 </html>

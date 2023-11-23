@@ -15,6 +15,8 @@ import com.kh.app.board.service.BoardService;
 @WebServlet("/board/list")
 
 public class BoardListController extends HttpServlet {
+	
+	// 게시글 목록 조회 화면
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		

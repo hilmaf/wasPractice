@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.kh.app.board.BoardVo;
 import com.kh.app.db.util.JDBCTemplate;
 import com.kh.app.member.MemberVo;
 
@@ -55,6 +56,7 @@ public class MemberDao {
 			
 			loginMember = new MemberVo();
 			
+			loginMember.setNo(no);
 			loginMember.setMemberId(id);
 			loginMember.setMemberPwd(pwd);
 			loginMember.setMemberNick(nick);
@@ -73,6 +75,8 @@ public class MemberDao {
 		
 		return loginMember;
 	}
+
+	
 	
 	
 }

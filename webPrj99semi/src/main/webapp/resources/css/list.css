@@ -1,0 +1,13 @@
+main {
+    display: grid;
+    grid-template-rows: 100px 400px 50px 100px;
+    grid-template-columns: 1fr;
+    place-items: center center;
+	font-size: 24px;
+}
+
+main > table > tbody > tr:hover {
+	background-color: lightgray;
+	cursor: pointer;
+}
+
