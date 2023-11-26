@@ -8,24 +8,27 @@ import java.util.List;
 
 import com.kh.app.board.BoardVo;
 import com.kh.app.db.util.JDBCTemplate;
+import com.kh.app.page.vo.PageVo;
 
 public class BoardDao {
 
-	public List<BoardVo> selectBoardList(Connection conn) throws Exception {
+	public List<BoardVo> selectBoardList(Connection conn, PageVo pvo) throws Exception {
 		// sql
-		String sql = "SELECT B.NO  번호 , C.CATEGORY 카테고리 , B.TITLE 제목 , M.ID 작성자 , B.HIT 조회수 , B.ENROLL_DATE 작성일 FROM BOARD B LEFT JOIN MEMBER M ON B.WRITER_NO = M.NO LEFT JOIN CATEGORY C ON B.CATEGORY_NO = C.NO WHERE B.STATUS='O' ORDER BY B.NO DESC";
+		String sql = "SELECT B.* FROM ( SELECT ROWNUM RNUM, A.* FROM ( SELECT B.*, C.CATEGORY, M.ID FROM BOARD B LEFT JOIN MEMBER M ON B.WRITER_NO = M.NO LEFT JOIN CATEGORY C ON B.CATEGORY_NO = C.NO WHERE B.STATUS = 'O' ORDER BY B.NO DESC ) A ) B WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, pvo.getStartRow());
+		pstmt.setInt(2, pvo.getLastRow());
 		ResultSet rs = pstmt.executeQuery();
 		
 		// rs
 		List<BoardVo> boardVoList = new ArrayList<BoardVo>();
 		while(rs.next()) {
-			String no = rs.getString("번호");
-			String categoryName = rs.getString("카테고리");
-			String title = rs.getString("제목");
-			String writerNick = rs.getString("작성자");
-			String hit = rs.getString("조회수");
-			String enrollDate = rs.getString("작성일");
+			String no = rs.getString("NO");
+			String categoryName = rs.getString("CATEGORY");
+			String title = rs.getString("TITLE");
+			String writerNick = rs.getString("ID");
+			String hit = rs.getString("HIT");
+			String enrollDate = rs.getString("ENROLL_DATE");
 			
 			BoardVo vo = new BoardVo();
 			vo.setNo(no);
@@ -133,6 +136,24 @@ public class BoardDao {
 		JDBCTemplate.close(pstmt);
 		
 		return result;
+	}
+
+	public int selectBoardCount(Connection conn) throws Exception {
+		// sql
+		String sql = "SELECT COUNT(*) FROM BOARD WHERE STATUS ='O'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		// rs
+		int cnt = 0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		
+		// close
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cnt;
 	}
 
 }

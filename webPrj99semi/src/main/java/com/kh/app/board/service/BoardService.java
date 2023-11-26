@@ -7,16 +7,17 @@ import com.kh.app.board.BoardVo;
 import com.kh.app.board.dao.BoardDao;
 import com.kh.app.db.util.JDBCTemplate;
 import com.kh.app.member.dao.MemberDao;
+import com.kh.app.page.vo.PageVo;
 
 public class BoardService {
 
 	// 게시글 목록 조회
-	public List<BoardVo> selectBoardList() throws Exception {
+	public List<BoardVo> selectBoardList(PageVo pvo) throws Exception {
 		// conn
 		Connection conn = JDBCTemplate.getConnection();
 		// dao
 		BoardDao dao = new BoardDao();
-		List<BoardVo> boardVoList = dao.selectBoardList(conn);
+		List<BoardVo> boardVoList = dao.selectBoardList(conn, pvo);
 		
 		// tx
 		
@@ -92,6 +93,21 @@ public class BoardService {
 		JDBCTemplate.close(conn);
 		
 		return result;
+	}
+
+	public int selectBoardCount() throws Exception {
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		// dao
+		BoardDao dao = new BoardDao();
+		int cnt = dao.selectBoardCount(conn);
+		// tx
+		
+		// close
+		JDBCTemplate.close(conn);
+		
+		return cnt;
 	}
 
 
